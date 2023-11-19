@@ -4,7 +4,6 @@ import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_li
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router_test/core/auth/auth.provider.dart';
-// import 'package:go_router/go_router.dart';
 
 abstract class Screen extends ConsumerStatefulWidget {
   final String name;
