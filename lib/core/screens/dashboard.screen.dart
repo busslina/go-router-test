@@ -2,6 +2,7 @@ import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_li
     as fllib;
 import 'package:go_router_test/lib.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class DashboardScreen extends Screen {
         );
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends ScreenState<DashboardScreen> {
@@ -23,9 +24,6 @@ class _DashboardScreenState extends ScreenState<DashboardScreen> {
   Widget buildBody(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Title
-          const fllib.Label('Dashboard'),
-
           // Settings link
           buildButton(
               onPressed: () =>

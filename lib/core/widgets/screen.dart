@@ -1,9 +1,11 @@
 import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
-    as llib;
+    as fllib;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:go_router/go_router.dart';
 
-abstract class Screen extends StatefulWidget {
+abstract class Screen extends ConsumerStatefulWidget {
   final String name;
 
   const Screen({
@@ -12,19 +14,19 @@ abstract class Screen extends StatefulWidget {
   });
 }
 
-abstract class ScreenState<T extends Screen> extends State<T> {
+abstract class ScreenState<T extends Screen> extends ConsumerState<T> {
   FloatingActionButtonLocation? get floatingActionButtonLocation => null;
 
   @override
   void initState() {
-    llib.debug('ScreenState.initState() -- ${widget.name}');
+    fllib.debug('ScreenState.initState() -- ${widget.name}');
 
     super.initState();
   }
 
   @override
   void dispose() {
-    llib.debug('ScreenState.dispose() -- ${widget.name}');
+    fllib.debug('ScreenState.dispose() -- ${widget.name}');
 
     super.dispose();
   }
@@ -32,7 +34,7 @@ abstract class ScreenState<T extends Screen> extends State<T> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          // centerTitle: true,
+          title: fllib.Label(widget.name),
           backgroundColor: Colors.grey,
           foregroundColor: Colors.white,
         ),

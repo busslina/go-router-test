@@ -1,7 +1,8 @@
-import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
-    as fllib;
+// import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
+//     as fllib;
 import 'package:go_router_test/lib.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends Screen {
@@ -12,11 +13,10 @@ class SettingsScreen extends Screen {
         );
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends ScreenState<SettingsScreen> {
   @override
-  Widget buildBody(BuildContext context) =>
-      const fllib.Label('Settings').centered();
+  Widget buildBody(BuildContext context) => Container();
 }
