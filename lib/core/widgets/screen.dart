@@ -3,6 +3,7 @@ import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_li
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router_test/core/auth/auth.provider.dart';
 // import 'package:go_router/go_router.dart';
 
 abstract class Screen extends ConsumerStatefulWidget {
@@ -34,8 +35,19 @@ abstract class ScreenState<T extends Screen> extends ConsumerState<T> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: fllib.Label(widget.name),
-          backgroundColor: Colors.grey,
+          title: fllib.Label(
+            widget.name,
+            color: Colors.white,
+            fontSize: 20,
+          ),
+          actions: [
+            if (ref.watch(authProvider).loggedIn)
+              IconButton(
+                  onPressed: () => ref.read(authProvider.notifier).logout(),
+                  icon: const Icon(Icons.logout))
+          ],
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 61, 57, 57),
           foregroundColor: Colors.white,
         ),
         body: buildBody(context).expanded().bgColor(Colors.black),

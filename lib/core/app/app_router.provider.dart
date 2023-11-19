@@ -1,7 +1,10 @@
+import 'package:busslina_dart_lightweight_lib/busslina_dart_lightweight_lib.dart'
+    as llib;
 import 'package:go_router_test/lib.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 
 part 'app_router.provider.g.dart';
 
@@ -22,6 +25,10 @@ GoRouter appRouter(AppRouterRef ref) {
               ? null
               : Routes.login.path;
     },
+    refreshListenable: ChangeNotifier()
+      ..addListener(() {
+        llib.debug('refreshListenable');
+      }),
     routes: [
       // (01) Login
       GoRoute(

@@ -7,7 +7,23 @@ class Auth extends _$Auth {
   @override
   AuthState build() => AuthState(loggedIn: false);
 
-  void login() => state = AuthState(loggedIn: true);
+  void login() {
+    // Bad usage
+    if (state.loggedIn) {
+      throw ('Auth.login() -- Bad usage');
+    }
+
+    state = AuthState(loggedIn: true);
+  }
+
+  void logout() {
+    // Bad usage
+    if (!state.loggedIn) {
+      throw ('Auth.logout() -- Bad usage');
+    }
+
+    state = AuthState(loggedIn: false);
+  }
 }
 
 class AuthState {

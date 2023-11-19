@@ -5,3 +5,6 @@
 
 
     -   https://pub.dev/documentation/go_router/latest/go_router/StatefulShellRoute-class.html
+
+    -   https://pub.dev/packages/go_router_plus
+    
