@@ -28,8 +28,8 @@ class _DashboardScreenState extends ScreenState<DashboardScreen> {
 
           // Settings link
           buildButton(
-              onPressed: () => context
-                  .go('${Routes.dashboard.root}/${Routes.dashboard.settings}'),
+              onPressed: () =>
+                  context.go(context.namedLocation(Routes.dashboard.settings)),
               child: const fllib.Label('Settings')),
 
           // Counter text

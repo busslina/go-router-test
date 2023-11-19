@@ -10,11 +10,13 @@ final _router = GoRouter(
     // (01) Dashboard
     GoRoute(
         path: Routes.dashboard.root,
+        name: Routes.dashboard.root,
         builder: (context, state) => const DashboardScreen(),
         routes: [
           // (01) Settings
           GoRoute(
             path: Routes.dashboard.settings,
+            name: Routes.dashboard.settings,
             builder: (context, state) => const SettingsScreen(),
           ),
         ]),
