@@ -17,6 +17,8 @@ class DashboardScreen extends Screen {
 }
 
 class _DashboardScreenState extends ScreenState<DashboardScreen> {
+  int _counter = 0;
+
   @override
   Widget buildBody(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,6 +31,21 @@ class _DashboardScreenState extends ScreenState<DashboardScreen> {
               onPressed: () => context
                   .go('${Routes.dashboard.root}/${Routes.dashboard.settings}'),
               child: const fllib.Label('Settings')),
+
+          // Counter text
+          fllib.Label('Counter: $_counter').marginTop(20),
         ],
       );
+
+  @override
+  Widget? buildFloatingActionButton(BuildContext context) =>
+      FloatingActionButton(
+        mini: true,
+        onPressed: () => setState(() => _counter++),
+        child: const Icon(Icons.add),
+      );
+
+  @override
+  FloatingActionButtonLocation? get floatingActionButtonLocation =>
+      FloatingActionButtonLocation.centerFloat;
 }

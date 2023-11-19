@@ -1,7 +1,7 @@
 import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
     as llib;
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+// import 'package:go_router/go_router.dart';
 
 abstract class Screen extends StatefulWidget {
   final String name;
@@ -13,6 +13,8 @@ abstract class Screen extends StatefulWidget {
 }
 
 abstract class ScreenState<T extends Screen> extends State<T> {
+  FloatingActionButtonLocation? get floatingActionButtonLocation => null;
+
   @override
   void initState() {
     llib.debug('ScreenState.initState() -- ${widget.name}');
@@ -35,9 +37,13 @@ abstract class ScreenState<T extends Screen> extends State<T> {
           foregroundColor: Colors.white,
         ),
         body: buildBody(context).expanded().bgColor(Colors.black),
+        floatingActionButton: buildFloatingActionButton(context),
+        floatingActionButtonLocation: floatingActionButtonLocation,
       );
 
   Widget buildBody(BuildContext context);
+
+  Widget? buildFloatingActionButton(BuildContext context) => null;
 
   Widget buildButton({
     required VoidCallback? onPressed,
