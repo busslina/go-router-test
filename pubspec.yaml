@@ -9,6 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  busslina_flutter_lightweight_lib:
+    path: ../../LIBS/busslina-flutter-lightweight-lib
+  go_router: ^12.1.1
 
 dev_dependencies:
   flutter_test:
