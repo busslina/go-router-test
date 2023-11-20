@@ -15,8 +15,6 @@ abstract class Screen extends ConsumerStatefulWidget {
 }
 
 abstract class ScreenState<T extends Screen> extends ConsumerState<T> {
-  FloatingActionButtonLocation? get floatingActionButtonLocation => null;
-
   @override
   void initState() {
     fllib.debug('ScreenState.initState() -- ${widget.name}');
@@ -57,6 +55,8 @@ abstract class ScreenState<T extends Screen> extends ConsumerState<T> {
   Widget buildBody(BuildContext context);
 
   Widget? buildFloatingActionButton(BuildContext context) => null;
+
+  FloatingActionButtonLocation? get floatingActionButtonLocation => null;
 
   Widget buildButton({
     required VoidCallback? onPressed,

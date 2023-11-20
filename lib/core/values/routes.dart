@@ -7,9 +7,11 @@ class Routes {
 
   /// (02) User list
   static const userListIndex = 0;
-  static const userListName = 'userList';
-  static const userListPath = '/$userListName';
-  static const userList = (path: userListPath, name: userListName);
+  static const userList = 'users';
+  static const userListPath = '/$userList';
+  static const userModify = 'userModify';
+  static const userModifyPath = 'modify/:userId';
+  static const userModifyFullPath = '$userListPath/modify/:userId';
 
   /// (03) Settings
   static const userSettingsIndex = 1;

@@ -10,6 +10,7 @@ export 'core/screens/dashboard.shell_screen.dart';
 export 'core/screens/login.screen.dart';
 export 'core/screens/settings.screen.dart';
 export 'core/screens/user_list.screen.dart';
+export 'core/screens/user_modify.screen.dart';
 
 export 'core/values/routes.dart';
 

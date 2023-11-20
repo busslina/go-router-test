@@ -1,5 +1,5 @@
-// import 'package:busslina_dart_lightweight_lib/busslina_dart_lightweight_lib.dart'
-//     as llib;
+import 'package:busslina_dart_lightweight_lib/busslina_dart_lightweight_lib.dart'
+    as llib;
 import 'package:go_router_test/lib.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 
 part 'app_router.provider.g.dart';
 
-final _initialLocation = Routes.userList.path;
+const _initialLocation = Routes.userListPath;
 
 @Riverpod(keepAlive: true)
 GoRouter appRouter(AppRouterRef ref) {
@@ -37,27 +37,42 @@ GoRouter appRouter(AppRouterRef ref) {
 
       // (02) Dashboard
       StatefulShellRoute.indexedStack(
-        builder: (context, state, child) => DashboardShellScreen(
-          fullPath: state.fullPath!,
-          child: child,
-        ),
+        builder: (context, state, child) {
+          llib.debug(state.asString);
+          return DashboardShellScreen(
+            fullPath: state.fullPath!,
+            child: child,
+          );
+        },
         branches: [
           // (01) User list
           StatefulShellBranch(
             routes: [
-              // (01) Default
+              // (01) Base
               GoRoute(
-                path: Routes.userList.path,
-                name: Routes.userList.name,
-                builder: (context, state) => const UserListScreen(),
-              ),
+                  path: Routes.userListPath,
+                  name: Routes.userList,
+                  builder: (context, state) => const UserListScreen(),
+                  routes: [
+                    // (01) User modify
+                    GoRoute(
+                      path: Routes.userModifyPath,
+                      name: Routes.userModify,
+                      builder: (context, state) => UserModifyScreen(
+                        user: users
+                            .where((user) =>
+                                user.id == state.pathParameters['userId'])
+                            .first,
+                      ),
+                    ),
+                  ]),
             ],
           ),
 
           // (02) Settings
           StatefulShellBranch(
             routes: [
-              // (01) Default
+              // (01) Base
               GoRoute(
                 path: Routes.settings.path,
                 name: Routes.settings.name,

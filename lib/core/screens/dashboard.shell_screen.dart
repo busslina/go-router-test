@@ -21,7 +21,7 @@ class DashboardShellScreen extends ShellScreen {
 
   @override
   int getSelectedIndex(String fullPath) => switch (fullPath) {
-        Routes.userListPath => 0,
+        Routes.userListPath || Routes.userModifyFullPath => 0,
         Routes.settingsPath => 1,
         _ => throw ('Error'),
       };
@@ -52,7 +52,7 @@ class _DashboardShellScreenState
     }
 
     final newPathName = switch (index) {
-      Routes.userListIndex => Routes.userListName,
+      Routes.userListIndex => Routes.userList,
       Routes.userSettingsIndex => Routes.settingsName,
       _ => throw ('Error'),
     };
