@@ -17,10 +17,14 @@ class UserListScreen extends Screen {
 }
 
 class _UserListScreenState extends ScreenState<UserListScreen> {
+  static const _textColor = Colors.black;
+
   User? _selectedUser;
 
   @override
   Widget buildBody(BuildContext context) => Row(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // User list
           _buildUserList(),
@@ -35,7 +39,7 @@ class _UserListScreenState extends ScreenState<UserListScreen> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: users.map((user) => _buildUserCard(user)).toList(),
           ),
         ),
@@ -47,18 +51,22 @@ class _UserListScreenState extends ScreenState<UserListScreen> {
           fllib.Label(
             'Id: ${user.id}',
             fontSize: 14,
+            color: _textColor,
           ),
 
           // Name
           fllib.Label(
             user.name,
             fontSize: 17,
+            color: _textColor,
           ),
         ],
       )
           .bgColor(Colors.lime)
           .onTap(() => setState(() => _selectedUser = user))
-          .rounded();
+          .withSizeConstraints(const BoxConstraints(minWidth: 200))
+          .rounded()
+          .withMargin(const EdgeInsets.symmetric(horizontal: 10, vertical: 10));
 
   Widget _buildUserDetail(User user) => Expanded(
         flex: 5,
@@ -68,15 +76,24 @@ class _UserListScreenState extends ScreenState<UserListScreen> {
             fllib.Label(
               'Id: ${user.id}',
               fontSize: 17,
-            ),
+              color: _textColor,
+            ).marginTop(10),
 
             // Name
             fllib.Label(
               user.name,
               fontSize: 20,
-            ),
+              color: _textColor,
+            ).marginTop(5),
           ],
-        ).bgColor(Colors.lime).rounded(),
+        )
+            .bgColor(
+              Colors.lime,
+            )
+            .rounded()
+            .withMargin(
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            ),
       );
 }
 
