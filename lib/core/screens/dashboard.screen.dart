@@ -30,6 +30,13 @@ class _DashboardScreenState extends ScreenState<DashboardScreen> {
                   context.go(context.namedLocation(Routes.dashboard.settings)),
               child: const fllib.Label('Settings')),
 
+          // User list link
+          buildButton(
+                  onPressed: () => context
+                      .go(context.namedLocation(Routes.dashboard.userList)),
+                  child: const fllib.Label('User list'))
+              .marginTop(10),
+
           // Counter text
           fllib.Label('Counter: $_counter').marginTop(20),
         ],

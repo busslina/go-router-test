@@ -39,7 +39,14 @@ GoRouter appRouter(AppRouterRef ref) {
         name: Routes.dashboard.name,
         builder: (context, state) => const DashboardScreen(),
         routes: [
-          // (01) Settings
+          // (01) User list
+          GoRoute(
+            path: Routes.dashboard.userList,
+            name: Routes.dashboard.userList,
+            builder: (context, state) => const UserListScreen(),
+          ),
+
+          // (02) Settings
           GoRoute(
             path: Routes.dashboard.settings,
             name: Routes.dashboard.settings,

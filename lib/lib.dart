@@ -8,6 +8,7 @@ export 'core/extensions/ref.extension.dart';
 export 'core/screens/dashboard.screen.dart';
 export 'core/screens/login.screen.dart';
 export 'core/screens/settings.screen.dart';
+export 'core/screens/user_list.screen.dart';
 
 export 'core/values/routes.dart';
 

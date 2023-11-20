@@ -6,7 +6,11 @@ class Routes {
   static const login = (path: '/login', name: 'login');
 
   /// (01) Dashboard
-  static const dashboard =
-      (path: '/dashboard', name: 'dashboard', settings: 'settings');
+  static const dashboard = (
+    path: '/dashboard',
+    name: 'dashboard',
+    userList: 'userList',
+    settings: 'settings',
+  );
   //#endregion
 }

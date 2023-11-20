@@ -49,7 +49,7 @@ abstract class ScreenState<T extends Screen> extends ConsumerState<T> {
           backgroundColor: const Color.fromARGB(255, 61, 57, 57),
           foregroundColor: Colors.white,
         ),
-        body: buildBody(context).expanded().bgColor(Colors.black),
+        body: buildBody(context).boxExpanded().bgColor(Colors.black),
         floatingActionButton: buildFloatingActionButton(context),
         floatingActionButtonLocation: floatingActionButtonLocation,
       );
