@@ -22,7 +22,7 @@ class _SettingsScreenState extends ScreenState<SettingsScreen> {
         children: [
           // Users remove button
           buildButton(
-              onPressed: () => users.clear(),
+              onPressed: () => ref.read(usersProvider.notifier).removeAll(),
               child: const fllib.Label('Remove all users'))
         ],
       );

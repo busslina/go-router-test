@@ -1,5 +1,6 @@
 import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
     as fllib;
+import 'package:equatable/equatable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_test/lib.dart';
 
@@ -40,7 +41,10 @@ class _UserListScreenState extends ScreenState<UserListScreen> {
           scrollDirection: Axis.vertical,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: users.map((user) => _buildUserCard(user)).toList(),
+            children: ref
+                .watch(usersProvider)
+                .map((user) => _buildUserCard(user))
+                .toList(),
           ),
         ),
       );
@@ -103,7 +107,7 @@ class _UserListScreenState extends ScreenState<UserListScreen> {
       );
 }
 
-class User {
+class User with EquatableMixin {
   final String id;
   final String name;
 
@@ -113,25 +117,8 @@ class User {
   });
 
   @override
+  List<Object?> get props => [id, name];
+
+  @override
   String toString() => '($id): $name';
 }
-
-final users = {
-  User(id: '1', name: 'Pepe'),
-  User(id: '2', name: 'Juan'),
-  User(id: '3', name: 'Emilio'),
-  User(id: '4', name: 'Susana'),
-  User(id: '5', name: 'Alejandro'),
-  User(id: '6', name: 'Pedro'),
-  User(id: '7', name: 'Luis'),
-  User(id: '8', name: 'Roberto'),
-  User(id: '9', name: 'Felix'),
-  User(id: '10', name: 'Fernando'),
-  User(id: '11', name: 'Adrian'),
-  User(id: '12', name: 'David'),
-  User(id: '13', name: 'Alberto'),
-  User(id: '14', name: 'Santiago'),
-  User(id: '15', name: 'Javier'),
-  User(id: '16', name: 'Maria'),
-  User(id: '17', name: 'Valentin'),
-};

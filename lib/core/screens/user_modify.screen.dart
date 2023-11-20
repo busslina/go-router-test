@@ -1,7 +1,5 @@
 import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
     as fllib;
-import 'package:busslina_dart_lightweight_lib/busslina_dart_lightweight_lib.dart'
-    as llib;
 import 'package:go_router/go_router.dart';
 import 'package:go_router_test/lib.dart';
 
@@ -9,13 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 class UserModifyScreen extends Screen {
-  final User user;
+  final String userId;
 
-  UserModifyScreen({
+  const UserModifyScreen({
     super.key,
-    required this.user,
+    required this.userId,
   }) : super(
-          name: 'User modify: ${user.name}',
+          name: 'User modify',
         );
 
   @override
@@ -32,6 +30,11 @@ class _UserModifyScreenState extends ScreenState<UserModifyScreen> {
 
     // llib.delay(const Duration(seconds: 10)).then((value) => context.pop());
   }
+
+  User get _userRead => ref.read(usersProvider.notifier).get(widget.userId)!;
+
+  @override
+  String get scaffoldTitle => 'User modify: ${_userRead.name}';
 
   @override
   Widget buildBody(BuildContext context) => Column(

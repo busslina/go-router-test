@@ -3,6 +3,8 @@ export 'core/app/app.dart';
 
 export 'core/auth/auth.provider.dart';
 
+export 'core/data/users.provider.dart';
+
 export 'core/extensions/go_router_state.extension.dart';
 export 'core/extensions/ref.extension.dart';
 

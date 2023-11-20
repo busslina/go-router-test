@@ -58,20 +58,20 @@ GoRouter appRouter(AppRouterRef ref) {
                       path: Routes.userModifyPath,
                       name: Routes.userModify,
                       redirect: (context, state) {
-                        final userId = state.pathParameters['userId'];
+                        final userId = state.pathParameters['userId']!;
 
                         // User removed
-                        if (users.where((user) => user.id == userId).isEmpty) {
+                        if (ref
+                            .read(usersProvider)
+                            .where((user) => user.id == userId)
+                            .isEmpty) {
                           return Routes.userListPath;
                         }
 
                         return null;
                       },
                       builder: (context, state) => UserModifyScreen(
-                        user: users
-                            .where((user) =>
-                                user.id == state.pathParameters['userId'])
-                            .first,
+                        userId: state.pathParameters['userId']!,
                       ),
                     ),
                   ]),

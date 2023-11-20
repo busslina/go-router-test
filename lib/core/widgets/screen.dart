@@ -32,11 +32,13 @@ abstract class ScreenState<T extends Screen> extends ConsumerState<T> {
     super.dispose();
   }
 
+  String get scaffoldTitle => widget.name;
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: fllib.Label(
-            widget.name,
+            scaffoldTitle,
             color: Colors.white,
             fontSize: 20,
           ),
