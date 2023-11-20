@@ -1,5 +1,5 @@
-// import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
-//     as fllib;
+import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
+    as fllib;
 import 'package:go_router_test/lib.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,5 +18,12 @@ class SettingsScreen extends Screen {
 
 class _SettingsScreenState extends ScreenState<SettingsScreen> {
   @override
-  Widget buildBody(BuildContext context) => Container();
+  Widget buildBody(BuildContext context) => Column(
+        children: [
+          // Users remove button
+          buildButton(
+              onPressed: () => users.clear(),
+              child: const fllib.Label('Remove all users'))
+        ],
+      );
 }

@@ -57,6 +57,16 @@ GoRouter appRouter(AppRouterRef ref) {
                     GoRoute(
                       path: Routes.userModifyPath,
                       name: Routes.userModify,
+                      redirect: (context, state) {
+                        final userId = state.pathParameters['userId'];
+
+                        // User removed
+                        if (users.where((user) => user.id == userId).isEmpty) {
+                          return Routes.userListPath;
+                        }
+
+                        return null;
+                      },
                       builder: (context, state) => UserModifyScreen(
                         user: users
                             .where((user) =>

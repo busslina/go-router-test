@@ -58,5 +58,5 @@ class _UserModifyScreenState extends ScreenState<UserModifyScreen> {
 
   @override
   FloatingActionButtonLocation? get floatingActionButtonLocation =>
-      FloatingActionButtonLocation.centerDocked;
+      FloatingActionButtonLocation.centerFloat;
 }
