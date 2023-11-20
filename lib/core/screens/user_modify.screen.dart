@@ -28,10 +28,16 @@ class _UserModifyScreenState extends ScreenState<UserModifyScreen> {
   void initState() {
     super.initState();
 
+    // ref.listenManual(usersProvider, (previous, next) {
+    //   if (!next.contains(widget.userId!)) {
+    //     setState(() => _selectedUserId = null);
+    //   }
+    // });
+
     // llib.delay(const Duration(seconds: 10)).then((value) => context.pop());
   }
 
-  User get _userRead => ref.read(usersProvider.notifier).get(widget.userId)!;
+  User get _userRead => ref.read(userFamProvider(widget.userId));
 
   @override
   String get scaffoldTitle => 'User modify: ${_userRead.name}';

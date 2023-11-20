@@ -21,7 +21,18 @@ class UserListScreen extends Screen {
 class _UserListScreenState extends ScreenState<UserListScreen> {
   static const _textColor = Colors.black;
 
-  User? _selectedUser;
+  String? _selectedUserId;
+
+  @override
+  void initState() {
+    super.initState();
+
+    ref.listenManual(usersProvider, (previous, next) {
+      if (_selectedUserId != null && !next.contains(_selectedUserId!)) {
+        setState(() => _selectedUserId = null);
+      }
+    });
+  }
 
   @override
   Widget buildBody(BuildContext context) => Row(
@@ -31,7 +42,7 @@ class _UserListScreenState extends ScreenState<UserListScreen> {
           _buildUserList(),
 
           // User detail
-          if (_selectedUser != null) _buildUserDetail(_selectedUser!),
+          if (_selectedUserId != null) _buildUserDetail(_selectedUserId!),
         ],
       );
 
@@ -43,68 +54,76 @@ class _UserListScreenState extends ScreenState<UserListScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: ref
                 .watch(usersProvider)
-                .map((user) => _buildUserCard(user))
+                .map((userId) => _buildUserCard(userId))
                 .toList(),
           ),
         ),
       );
 
-  Widget _buildUserCard(User user) => Column(
+  Widget _buildUserCard(String userId) {
+    final user = ref.watch(userFamProvider(userId));
+
+    return Column(
+      children: [
+        // Id
+        fllib.Label(
+          'Id: ${user.id}',
+          fontSize: 14,
+          color: _textColor,
+        ),
+
+        // Name
+        fllib.Label(
+          user.name,
+          fontSize: 17,
+          color: _textColor,
+        ),
+      ],
+    )
+        .bgColor(Colors.lime)
+        .onTap(() => setState(() => _selectedUserId = user.id))
+        .withSizeConstraints(const BoxConstraints(minWidth: 200))
+        .rounded()
+        .withMargin(const EdgeInsets.symmetric(horizontal: 10, vertical: 10));
+  }
+
+  Widget _buildUserDetail(String userId) {
+    final user = ref.watch(userFamProvider(userId));
+
+    return Expanded(
+      flex: 5,
+      child: Column(
         children: [
           // Id
           fllib.Label(
             'Id: ${user.id}',
-            fontSize: 14,
+            fontSize: 17,
             color: _textColor,
-          ),
+          ).marginTop(10),
 
           // Name
           fllib.Label(
             user.name,
-            fontSize: 17,
+            fontSize: 20,
             color: _textColor,
-          ),
+          ).marginTop(5),
+
+          // Modify button
+          buildButton(
+              onPressed: () => context.goNamed(Routes.userModify,
+                  pathParameters: {'userId': user.id}),
+              child: const fllib.Label('Modify')),
         ],
       )
-          .bgColor(Colors.lime)
-          .onTap(() => setState(() => _selectedUser = user))
-          .withSizeConstraints(const BoxConstraints(minWidth: 200))
+          .bgColor(
+            Colors.lime,
+          )
           .rounded()
-          .withMargin(const EdgeInsets.symmetric(horizontal: 10, vertical: 10));
-
-  Widget _buildUserDetail(User user) => Expanded(
-        flex: 5,
-        child: Column(
-          children: [
-            // Id
-            fllib.Label(
-              'Id: ${user.id}',
-              fontSize: 17,
-              color: _textColor,
-            ).marginTop(10),
-
-            // Name
-            fllib.Label(
-              user.name,
-              fontSize: 20,
-              color: _textColor,
-            ).marginTop(5),
-
-            // Modify button
-            buildButton(
-                onPressed: () => context.goNamed(Routes.userModify,
-                    pathParameters: {'userId': user.id}),
-                child: const fllib.Label('Modify')),
-          ],
-        )
-            .bgColor(
-              Colors.lime,
-            )
-            .rounded()
-            .withMargin(
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            ),
-      );
+          .withMargin(
+            const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          ),
+    );
+  }
 }
 
 class User with EquatableMixin {

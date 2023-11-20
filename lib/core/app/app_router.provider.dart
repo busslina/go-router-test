@@ -63,7 +63,7 @@ GoRouter appRouter(AppRouterRef ref) {
                         // User removed
                         if (ref
                             .read(usersProvider)
-                            .where((user) => user.id == userId)
+                            .where((id) => id == userId)
                             .isEmpty) {
                           return Routes.userListPath;
                         }
