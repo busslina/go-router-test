@@ -1,5 +1,5 @@
-import 'package:busslina_dart_lightweight_lib/busslina_dart_lightweight_lib.dart'
-    as llib;
+// import 'package:busslina_dart_lightweight_lib/busslina_dart_lightweight_lib.dart'
+//     as llib;
 import 'package:go_router_test/lib.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -37,13 +37,10 @@ GoRouter appRouter(AppRouterRef ref) {
 
       // (02) Dashboard
       ShellRoute(
-        builder: (context, state, child) {
-          llib.debug('Dashboard -- ${state.asString}');
-          return DashboardShellScreen(
-            fullPath: state.fullPath!,
-            child: child,
-          );
-        },
+        builder: (context, state, child) => DashboardShellScreen(
+          fullPath: state.fullPath!,
+          child: child,
+        ),
         routes: [
           // (01) User list
           GoRoute(
