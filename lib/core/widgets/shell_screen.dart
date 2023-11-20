@@ -3,23 +3,17 @@ import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_li
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 abstract class ShellScreen extends ConsumerStatefulWidget {
   final String debugName;
-  late final int selectedIndex;
-  final Widget child;
+  final StatefulNavigationShell child;
 
-  ShellScreen({
+  const ShellScreen({
     super.key,
     required this.debugName,
-    required String fullPath,
     required this.child,
-  }) {
-    selectedIndex = getSelectedIndex(fullPath);
-  }
-
-  @protected
-  int getSelectedIndex(String fullPath);
+  });
 }
 
 abstract class ShellScreenState<T extends ShellScreen>
@@ -42,15 +36,12 @@ abstract class ShellScreenState<T extends ShellScreen>
 
   @override
   Widget build(BuildContext context) => _ScaffoldWithNestedNavigation(
-        selectedIndex: widget.selectedIndex,
-        onDestinationSelected: onDestinationSelected,
+        navigationShell: widget.child,
         destinations: getNavigationDestinations(),
         child: widget.child,
       );
 
   List<NavigationDestinationData> getNavigationDestinations();
-
-  void onDestinationSelected(int index);
 }
 
 class NavigationDestinationData {
@@ -77,6 +68,52 @@ class NavigationDestinationData {
       );
 }
 
+class _ScaffoldWithNestedNavigation extends StatelessWidget {
+  final StatefulNavigationShell navigationShell;
+  // final int selectedIndex;
+  // final Function(int index) onDestinationSelected;
+  final List<NavigationDestinationData> destinations;
+  final Widget child;
+
+  const _ScaffoldWithNestedNavigation({
+    required this.navigationShell,
+    // required this.selectedIndex,
+    // required this.onDestinationSelected,
+    required this.destinations,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+      builder: (context, constraints) => constraints.maxWidth < 450
+
+          // [A]: Bottom navigation bar
+          ? _ScaffoldWithBottomNavigationBar(
+              // selectedIndex: selectedIndex,
+              selectedIndex: navigationShell.currentIndex,
+              // onDestinationSelected: onDestinationSelected,
+              onDestinationSelected: navigationShell.goBranch,
+              destinations:
+                  destinations.map((item) => item.asDestination).toList(),
+              child: child,
+            )
+
+          // [B]: Navigation rail
+          : _ScaffoldWithNavigationRail(
+              // selectedIndex: selectedIndex,
+              selectedIndex: navigationShell.currentIndex,
+              // onDestinationSelected: onDestinationSelected,
+              onDestinationSelected: navigationShell.goBranch,
+              destinations:
+                  destinations.map((item) => item.asRailDestination).toList(),
+              child: child,
+            ));
+
+  // void _goToBranch(int index) {
+  //   navigationShell.goBranch
+  // }
+}
+
 class _ScaffoldWithBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
   final Function(int index) onDestinationSelected;
@@ -99,42 +136,6 @@ class _ScaffoldWithBottomNavigationBar extends StatelessWidget {
           destinations: destinations,
         ),
       );
-}
-
-class _ScaffoldWithNestedNavigation extends StatelessWidget {
-  final int selectedIndex;
-  final Function(int index) onDestinationSelected;
-  final List<NavigationDestinationData> destinations;
-  final Widget child;
-
-  const _ScaffoldWithNestedNavigation({
-    required this.selectedIndex,
-    required this.onDestinationSelected,
-    required this.destinations,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) => LayoutBuilder(
-      builder: (context, constraints) => constraints.maxWidth < 450
-
-          // [A]: Bottom navigation bar
-          ? _ScaffoldWithBottomNavigationBar(
-              selectedIndex: selectedIndex,
-              onDestinationSelected: onDestinationSelected,
-              destinations:
-                  destinations.map((item) => item.asDestination).toList(),
-              child: child,
-            )
-
-          // [B]: Navigation rail
-          : _ScaffoldWithNavigationRail(
-              selectedIndex: selectedIndex,
-              onDestinationSelected: onDestinationSelected,
-              destinations:
-                  destinations.map((item) => item.asRailDestination).toList(),
-              child: child,
-            ));
 }
 
 class _ScaffoldWithNavigationRail extends StatelessWidget {

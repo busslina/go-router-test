@@ -14,7 +14,7 @@ class Routes {
   static const userModifyFullPath = '$userListPath/modify/:userId';
 
   /// (03) Settings
-  static const userSettingsIndex = 1;
+  static const settingsIndex = 1;
   static const settingsName = 'settings';
   static const settingsPath = '/$settingsName';
   static const settings = (path: settingsPath, name: settingsName);

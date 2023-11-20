@@ -2,14 +2,12 @@
 //     as fllib;
 import 'package:go_router_test/lib.dart';
 
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 class DashboardShellScreen extends ShellScreen {
-  DashboardShellScreen({
+  const DashboardShellScreen({
     super.key,
-    required super.fullPath,
     required super.child,
   }) : super(
           debugName: 'Dashboard',
@@ -18,13 +16,6 @@ class DashboardShellScreen extends ShellScreen {
   @override
   ConsumerState<DashboardShellScreen> createState() =>
       _DashboardShellScreenState();
-
-  @override
-  int getSelectedIndex(String fullPath) => switch (fullPath) {
-        Routes.userListPath || Routes.userModifyFullPath => 0,
-        Routes.settingsPath => 1,
-        _ => throw ('Error'),
-      };
 }
 
 class _DashboardShellScreenState
@@ -43,20 +34,4 @@ class _DashboardShellScreenState
           label: 'Settings',
         ),
       ];
-
-  @override
-  void onDestinationSelected(int index) {
-    // No change
-    if (index == widget.selectedIndex) {
-      return;
-    }
-
-    final newPathName = switch (index) {
-      Routes.userListIndex => Routes.userList,
-      Routes.userSettingsIndex => Routes.settingsName,
-      _ => throw ('Error'),
-    };
-
-    context.goNamed(newPathName);
-  }
 }
