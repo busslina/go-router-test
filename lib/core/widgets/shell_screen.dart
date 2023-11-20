@@ -41,7 +41,7 @@ abstract class ShellScreenState<T extends ShellScreen>
   }
 
   @override
-  Widget build(BuildContext context) => ScaffoldWithNestedNavigation(
+  Widget build(BuildContext context) => _ScaffoldWithNestedNavigation(
         selectedIndex: widget.selectedIndex,
         onDestinationSelected: onDestinationSelected,
         destinations: getNavigationDestinations(),
@@ -62,25 +62,28 @@ class NavigationDestinationData {
     required this.label,
   });
 
-  NavigationRailDestination get asRailDestination => NavigationRailDestination(
-        icon: Icon(icon),
-        label: fllib.Label(label),
-      );
-
   NavigationDestination get asDestination => NavigationDestination(
         icon: Icon(icon),
         label: label,
       );
+
+  NavigationRailDestination get asRailDestination => NavigationRailDestination(
+        icon: Icon(icon),
+        label: fllib.Label(
+          label,
+          color: Colors.black,
+        ),
+        disabled: false,
+      );
 }
 
-class ScaffoldWithBottomNavigationBar extends StatelessWidget {
+class _ScaffoldWithBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
   final Function(int index) onDestinationSelected;
   final List<NavigationDestination> destinations;
   final Widget child;
 
-  const ScaffoldWithBottomNavigationBar({
-    super.key,
+  const _ScaffoldWithBottomNavigationBar({
     required this.selectedIndex,
     required this.onDestinationSelected,
     required this.destinations,
@@ -98,14 +101,49 @@ class ScaffoldWithBottomNavigationBar extends StatelessWidget {
       );
 }
 
-class ScaffoldWithNavigationRail extends StatelessWidget {
+class _ScaffoldWithNestedNavigation extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int index) onDestinationSelected;
+  final List<NavigationDestinationData> destinations;
+  final Widget child;
+
+  const _ScaffoldWithNestedNavigation({
+    required this.selectedIndex,
+    required this.onDestinationSelected,
+    required this.destinations,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+      builder: (context, constraints) => constraints.maxWidth < 450
+
+          // [A]: Bottom navigation bar
+          ? _ScaffoldWithBottomNavigationBar(
+              selectedIndex: selectedIndex,
+              onDestinationSelected: onDestinationSelected,
+              destinations:
+                  destinations.map((item) => item.asDestination).toList(),
+              child: child,
+            )
+
+          // [B]: Navigation rail
+          : _ScaffoldWithNavigationRail(
+              selectedIndex: selectedIndex,
+              onDestinationSelected: onDestinationSelected,
+              destinations:
+                  destinations.map((item) => item.asRailDestination).toList(),
+              child: child,
+            ));
+}
+
+class _ScaffoldWithNavigationRail extends StatelessWidget {
   final int selectedIndex;
   final Function(int index) onDestinationSelected;
   final List<NavigationRailDestination> destinations;
   final Widget child;
 
-  const ScaffoldWithNavigationRail({
-    super.key,
+  const _ScaffoldWithNavigationRail({
     required this.selectedIndex,
     required this.onDestinationSelected,
     required this.destinations,
@@ -121,6 +159,7 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
               selectedIndex: selectedIndex,
               onDestinationSelected: onDestinationSelected,
               destinations: destinations,
+              labelType: NavigationRailLabelType.selected,
             ),
 
             // Vertical divider
@@ -131,41 +170,4 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
           ],
         ),
       );
-}
-
-class ScaffoldWithNestedNavigation extends StatelessWidget {
-  final int selectedIndex;
-  final Function(int index) onDestinationSelected;
-  final List<NavigationDestinationData> destinations;
-  final Widget child;
-
-  const ScaffoldWithNestedNavigation({
-    super.key,
-    required this.selectedIndex,
-    required this.onDestinationSelected,
-    required this.destinations,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) => LayoutBuilder(
-      builder: (context, constraints) => constraints.maxWidth < 450
-
-          // [A]: Bottom navigation bar
-          ? ScaffoldWithBottomNavigationBar(
-              selectedIndex: selectedIndex,
-              onDestinationSelected: onDestinationSelected,
-              destinations:
-                  destinations.map((item) => item.asDestination).toList(),
-              child: child,
-            )
-
-          // [B]: Navigation rail
-          : ScaffoldWithNavigationRail(
-              selectedIndex: selectedIndex,
-              onDestinationSelected: onDestinationSelected,
-              destinations:
-                  destinations.map((item) => item.asRailDestination).toList(),
-              child: child,
-            ));
 }
