@@ -1,3 +1,5 @@
+import 'package:busslina_dart_lightweight_lib/busslina_dart_lightweight_lib.dart'
+    as llib;
 import 'package:go_router_test/lib.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -5,7 +7,7 @@ import 'package:go_router/go_router.dart';
 
 part 'app_router.provider.g.dart';
 
-final _initialLocation = Routes.dashboard.path;
+final _initialLocation = Routes.userList.path;
 
 @Riverpod(keepAlive: true)
 GoRouter appRouter(AppRouterRef ref) {
@@ -34,22 +36,26 @@ GoRouter appRouter(AppRouterRef ref) {
       ),
 
       // (02) Dashboard
-      GoRoute(
-        path: Routes.dashboard.path,
-        name: Routes.dashboard.name,
-        builder: (context, state) => const DashboardScreen(),
+      ShellRoute(
+        builder: (context, state, child) {
+          llib.debug('Dashboard -- ${state.asString}');
+          return DashboardShellScreen(
+            fullPath: state.fullPath!,
+            child: child,
+          );
+        },
         routes: [
           // (01) User list
           GoRoute(
-            path: Routes.dashboard.userList,
-            name: Routes.dashboard.userList,
+            path: Routes.userList.path,
+            name: Routes.userList.name,
             builder: (context, state) => const UserListScreen(),
           ),
 
           // (02) Settings
           GoRoute(
-            path: Routes.dashboard.settings,
-            name: Routes.dashboard.settings,
+            path: Routes.settings.path,
+            name: Routes.settings.name,
             builder: (context, state) => const SettingsScreen(),
           ),
         ],
