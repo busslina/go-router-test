@@ -1,10 +1,1 @@
 
-    -   https://docs.page/csells/go_router
-    -   https://docs.page/csells/go_router/transitions
-    -   https://pub.dev/documentation/go_router/latest/topics/Get%20started-topic.html
-
-
-    -   https://pub.dev/documentation/go_router/latest/go_router/StatefulShellRoute-class.html
-
-    -   https://pub.dev/packages/go_router_plus
-    

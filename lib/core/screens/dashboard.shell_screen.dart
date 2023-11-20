@@ -1,6 +1,8 @@
-import 'package:go_router/go_router.dart';
+// import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
+//     as fllib;
 import 'package:go_router_test/lib.dart';
 
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
@@ -28,34 +30,33 @@ class DashboardShellScreen extends ShellScreen {
 class _DashboardShellScreenState
     extends ShellScreenState<DashboardShellScreen> {
   @override
-  Widget buildBottomNavigationBar(BuildContext context) => NavigationBar(
-        selectedIndex: widget.selectedIndex,
-        onDestinationSelected: (value) {
-          // No change
-          if (value == widget.selectedIndex) {
-            return;
-          }
+  List<NavigationDestinationData> getNavigationDestinations() => [
+        // (01) User list
+        NavigationDestinationData(
+          icon: Icons.people,
+          label: 'Users',
+        ),
 
-          final newPathName = switch (value) {
-            Routes.userListIndex => Routes.userListName,
-            Routes.userSettingsIndex => Routes.settingsName,
-            _ => throw ('Error'),
-          };
+        // (02) Settings
+        NavigationDestinationData(
+          icon: Icons.settings,
+          label: 'Settings',
+        ),
+      ];
 
-          context.goNamed(newPathName);
-        },
-        destinations: const [
-          // (01) User list
-          NavigationDestination(
-            icon: Icon(Icons.people),
-            label: 'Users',
-          ),
+  @override
+  void onDestinationSelected(int index) {
+    // No change
+    if (index == widget.selectedIndex) {
+      return;
+    }
 
-          // (02) Settings
-          NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-      );
+    final newPathName = switch (index) {
+      Routes.userListIndex => Routes.userListName,
+      Routes.userSettingsIndex => Routes.settingsName,
+      _ => throw ('Error'),
+    };
+
+    context.goNamed(newPathName);
+  }
 }

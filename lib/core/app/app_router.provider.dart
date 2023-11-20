@@ -36,24 +36,34 @@ GoRouter appRouter(AppRouterRef ref) {
       ),
 
       // (02) Dashboard
-      ShellRoute(
+      StatefulShellRoute.indexedStack(
         builder: (context, state, child) => DashboardShellScreen(
           fullPath: state.fullPath!,
           child: child,
         ),
-        routes: [
+        branches: [
           // (01) User list
-          GoRoute(
-            path: Routes.userList.path,
-            name: Routes.userList.name,
-            builder: (context, state) => const UserListScreen(),
+          StatefulShellBranch(
+            routes: [
+              // (01) Default
+              GoRoute(
+                path: Routes.userList.path,
+                name: Routes.userList.name,
+                builder: (context, state) => const UserListScreen(),
+              ),
+            ],
           ),
 
           // (02) Settings
-          GoRoute(
-            path: Routes.settings.path,
-            name: Routes.settings.name,
-            builder: (context, state) => const SettingsScreen(),
+          StatefulShellBranch(
+            routes: [
+              // (01) Default
+              GoRoute(
+                path: Routes.settings.path,
+                name: Routes.settings.name,
+                builder: (context, state) => const SettingsScreen(),
+              ),
+            ],
           ),
         ],
       ),
