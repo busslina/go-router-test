@@ -1,5 +1,7 @@
 import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
     as fllib;
+import 'package:busslina_dart_lightweight_lib/busslina_dart_lightweight_lib.dart'
+    as llib;
 import 'package:go_router/go_router.dart';
 import 'package:go_router_test/lib.dart';
 
@@ -23,6 +25,13 @@ class UserModifyScreen extends Screen {
 class _UserModifyScreenState extends ScreenState<UserModifyScreen> {
   // static const _textColor = Colors.black;
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // llib.delay(const Duration(seconds: 10)).then((value) => context.pop());
+  }
 
   @override
   Widget buildBody(BuildContext context) => Column(

@@ -15,16 +15,19 @@ abstract class Screen extends ConsumerStatefulWidget {
 }
 
 abstract class ScreenState<T extends Screen> extends ConsumerState<T> {
+  static const _debugging = false;
+
   @override
   void initState() {
-    fllib.debug('ScreenState.initState() -- ${widget.name}');
+    fllib.debug('ScreenState.initState() -- ${widget.name}',
+        active: _debugging);
 
     super.initState();
   }
 
   @override
   void dispose() {
-    fllib.debug('ScreenState.dispose() -- ${widget.name}');
+    fllib.debug('ScreenState.dispose() -- ${widget.name}', active: _debugging);
 
     super.dispose();
   }
