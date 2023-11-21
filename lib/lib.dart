@@ -16,5 +16,4 @@ export 'core/screens/user_modify.screen.dart';
 export 'core/values/routes.dart';
 
 export 'core/widgets/screen.dart';
-export 'core/widgets/shell_route_child_screen.dart';
 export 'core/widgets/stateful_shell_screen.dart';
