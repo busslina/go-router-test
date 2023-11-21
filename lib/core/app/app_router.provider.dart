@@ -38,7 +38,7 @@ GoRouter appRouter(AppRouterRef ref) {
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           llib.debug(state.asString, active: false);
-          return DashboardShellScreen(
+          return DashboardStatefulShellScreen(
             child: navigationShell,
           );
         },

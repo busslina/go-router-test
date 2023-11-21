@@ -5,8 +5,8 @@ import 'package:go_router_test/lib.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-class DashboardShellScreen extends ShellScreen {
-  const DashboardShellScreen({
+class DashboardStatefulShellScreen extends StatefulShellScreen {
+  const DashboardStatefulShellScreen({
     super.key,
     required super.child,
   }) : super(
@@ -14,12 +14,12 @@ class DashboardShellScreen extends ShellScreen {
         );
 
   @override
-  ConsumerState<DashboardShellScreen> createState() =>
+  ConsumerState<DashboardStatefulShellScreen> createState() =>
       _DashboardShellScreenState();
 }
 
 class _DashboardShellScreenState
-    extends ShellScreenState<DashboardShellScreen> {
+    extends StatefulShellScreenState<DashboardStatefulShellScreen> {
   @override
   List<NavigationDestinationData> getNavigationDestinations() => [
         // (01) User list

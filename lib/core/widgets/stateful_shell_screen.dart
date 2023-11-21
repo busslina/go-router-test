@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-abstract class ShellScreen extends ConsumerStatefulWidget {
+abstract class StatefulShellScreen extends ConsumerStatefulWidget {
   final String debugName;
   final StatefulNavigationShell child;
 
-  const ShellScreen({
+  const StatefulShellScreen({
     super.key,
     required this.debugName,
     required this.child,
   });
 }
 
-abstract class ShellScreenState<T extends ShellScreen>
+abstract class StatefulShellScreenState<T extends StatefulShellScreen>
     extends ConsumerState<T> {
   static const _debugging = false;
 
