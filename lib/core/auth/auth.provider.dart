@@ -1,3 +1,4 @@
+import 'package:go_router_test/core/app/app_router.provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth.provider.g.dart';
@@ -14,6 +15,8 @@ class Auth extends _$Auth {
     }
 
     state = AuthState(loggedIn: true);
+
+    ref.read(appRouterProvider).refresh();
   }
 
   void logout() {
@@ -23,6 +26,8 @@ class Auth extends _$Auth {
     }
 
     state = AuthState(loggedIn: false);
+
+    ref.read(appRouterProvider).refresh();
   }
 }
 

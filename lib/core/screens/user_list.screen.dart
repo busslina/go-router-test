@@ -28,6 +28,7 @@ class _UserListScreenState extends ScreenState<UserListScreen> {
     super.initState();
 
     ref.listenManual(usersProvider, (previous, next) {
+      // Selected user removed -- Updating local state
       if (_selectedUserId != null && !next.contains(_selectedUserId!)) {
         setState(() => _selectedUserId = null);
       }

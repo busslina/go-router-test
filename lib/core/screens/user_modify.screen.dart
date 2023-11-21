@@ -1,5 +1,7 @@
 import 'package:busslina_flutter_lightweight_lib/busslina_flutter_lightweight_lib.dart'
     as fllib;
+import 'package:busslina_dart_lightweight_lib/busslina_dart_lightweight_lib.dart'
+    as llib;
 import 'package:go_router/go_router.dart';
 import 'package:go_router_test/lib.dart';
 
@@ -21,20 +23,23 @@ class UserModifyScreen extends Screen {
 }
 
 class _UserModifyScreenState extends ScreenState<UserModifyScreen> {
-  // static const _textColor = Colors.black;
   int _counter = 0;
 
   @override
   void initState() {
     super.initState();
 
-    // ref.listenManual(usersProvider, (previous, next) {
-    //   if (!next.contains(widget.userId!)) {
-    //     setState(() => _selectedUserId = null);
-    //   }
-    // });
+    ref.listenManual(usersProvider, (previous, next) {
+      // User removed -- Refreshing app router
+      if (!next.contains(widget.userId)) {
+        ref.read(appRouterProvider).refresh();
+      }
+    });
 
-    // llib.delay(const Duration(seconds: 10)).then((value) => context.pop());
+    // Test delay
+    llib
+        .delay(const Duration(seconds: 5))
+        .then((value) => ref.read(usersProvider.notifier).removeAll());
   }
 
   User get _userRead => ref.read(userFamProvider(widget.userId));

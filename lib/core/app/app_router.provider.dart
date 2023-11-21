@@ -26,7 +26,6 @@ GoRouter appRouter(AppRouterRef ref) {
               ? null
               : Routes.login.path;
     },
-    refreshListenable: ref.authListenable,
     routes: [
       // (01) Login
       GoRoute(
