@@ -19,15 +19,20 @@ abstract class ScreenState<T extends Screen> extends ConsumerState<T> {
 
   @override
   void initState() {
-    fllib.debug('ScreenState.initState() -- ${widget.name}',
-        active: _debugging);
+    fllib.debug(
+      'ScreenState.initState() -- ${widget.name}',
+      active: _debugging,
+    );
 
     super.initState();
   }
 
   @override
   void dispose() {
-    fllib.debug('ScreenState.dispose() -- ${widget.name}', active: _debugging);
+    fllib.debug(
+      'ScreenState.dispose() -- ${widget.name}',
+      active: _debugging,
+    );
 
     super.dispose();
   }

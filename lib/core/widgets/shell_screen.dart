@@ -18,18 +18,26 @@ abstract class ShellScreen extends ConsumerStatefulWidget {
 
 abstract class ShellScreenState<T extends ShellScreen>
     extends ConsumerState<T> {
+  static const _debugging = false;
+
   FloatingActionButtonLocation? get floatingActionButtonLocation => null;
 
   @override
   void initState() {
-    fllib.debug('ShellScreenState.initState() -- ${widget.debugName}');
+    fllib.debug(
+      'ShellScreenState.initState() -- ${widget.debugName}',
+      active: _debugging,
+    );
 
     super.initState();
   }
 
   @override
   void dispose() {
-    fllib.debug('ShellScreenState.dispose() -- ${widget.debugName}');
+    fllib.debug(
+      'ShellScreenState.dispose() -- ${widget.debugName}',
+      active: _debugging,
+    );
 
     super.dispose();
   }
