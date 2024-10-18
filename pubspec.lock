@@ -62,11 +62,32 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  flutter_rearch:
+    dependency: "direct main"
+    description:
+      name: flutter_rearch
+      sha256: "91890fece25249363a39eeac02eb43830e74074e90481e68c49232e29c2e0f3f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.11"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "6f1b756f6e863259a99135ff3c95026c3cdca17d10ebef2bba2261a25ddc8bbc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.3.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -99,6 +120,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: c8245ada5f1717ed44271ed1c26b8ce85ca3228fd2ffdb75468ab01979309d61
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
   matcher:
     dependency: transitive
     description:
@@ -131,6 +160,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.0"
+  rearch:
+    dependency: "direct main"
+    description:
+      name: rearch
+      sha256: bf48bb4f883f1e4f9c12ee20e28530385a0bbe90d76f2cbb66e495ebf97a85b6
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.13.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -202,4 +239,4 @@ packages:
     version: "14.2.5"
 sdks:
   dart: ">=3.5.3 <4.0.0"
-  flutter: ">=3.18.0-18.0.pre.54"
+  flutter: ">=3.19.0"
