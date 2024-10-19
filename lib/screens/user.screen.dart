@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rearch/flutter_rearch.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_test/screens/screen.dart';
 import 'package:go_router_test/utils/named.dart';
-import 'package:rearch/rearch.dart';
 
-class UserScreen extends RearchConsumer with Named, Screen {
-  UserScreen({
+class UserScreen extends StatefulWidget with Named, ScreenWidget {
+  const UserScreen({
     super.key,
     required this.userId,
-  }) {
-    print('UserScreen.constructor() -- User id: $userId');
-  }
+  });
 
   final String userId;
 
@@ -19,12 +15,16 @@ class UserScreen extends RearchConsumer with Named, Screen {
   String get named => 'User $userId';
 
   @override
-  Widget buildContent(BuildContext context, WidgetHandle use) {
-    dbg('buld()');
+  State<StatefulWidget> createState() => _UserScreenState();
+}
 
-    final otherUserId = userId == '1' ? '2' : '1';
+class _UserScreenState extends State<UserScreen>
+    with Named, ScreenState<UserScreen> {
+  int _counter = 0;
 
-    final counter = use.data(0);
+  @override
+  Widget buildContent(BuildContext context) {
+    final otherUserId = widget.userId == '1' ? '2' : '1';
 
     return Column(
       children: [
@@ -36,8 +36,10 @@ class UserScreen extends RearchConsumer with Named, Screen {
 
         // Counter button
         ElevatedButton(
-          onPressed: () => counter.value++,
-          child: Text('Counter: ${counter.value}'),
+          onPressed: () {
+            setState(() => _counter++);
+          },
+          child: Text('Counter: $_counter'),
         ),
 
         // Go back button

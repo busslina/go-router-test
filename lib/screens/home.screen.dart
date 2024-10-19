@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rearch/flutter_rearch.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_test/screens/screen.dart';
 import 'package:go_router_test/utils/named.dart';
 
-class HomeScreen extends RearchConsumer with Named, Screen {
+class HomeScreen extends StatefulWidget with Named, ScreenWidget {
   const HomeScreen({super.key});
 
   @override
   String get named => 'Home';
 
   @override
-  Widget buildContent(BuildContext context, WidgetHandle use) {
+  State<StatefulWidget> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with Named, ScreenState<HomeScreen> {
+  @override
+  Widget buildContent(BuildContext context) {
     return Column(
       children: [
         // User 1 button

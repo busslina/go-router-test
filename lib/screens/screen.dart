@@ -1,35 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rearch/flutter_rearch.dart';
 import 'package:go_router_test/utils/named.dart';
-import 'package:rearch/rearch.dart';
 
-mixin Screen on RearchConsumer, Named {
+mixin ScreenWidget on StatefulWidget, Named {
   String get title => named;
+}
+
+mixin ScreenState<T extends ScreenWidget> on State<T>, Named {
+  @override
+  String get named => widget.named;
 
   @override
-  Widget build(BuildContext context, WidgetHandle use) {
-    use.effect(
-      () {
-        dbg('Init');
+  void initState() {
+    super.initState();
+    dbg('initState()');
+  }
 
-        return () => dbg('Dispose');
-      },
-      [],
-    );
+  @override
+  void dispose() {
+    dbg('dispose()');
+    super.dispose();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         // Title
         Text(
-          title,
+          widget.title,
           style: const TextStyle(fontSize: 20),
         ),
 
         // Content
-        buildContent(context, use),
+        buildContent(context),
       ],
     );
   }
 
-  Widget buildContent(BuildContext context, WidgetHandle use);
+  Widget buildContent(BuildContext context);
 }
