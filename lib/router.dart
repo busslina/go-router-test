@@ -21,9 +21,10 @@ GoRouter routerCapsule(CapsuleHandle use) {
             pageBuilder: (context, state) {
               final userId = state.pathParameters['userId']!;
 
+              print('Building MaterialPage for User id: $userId');
+
               return MaterialPage(
                 // key: ValueKey('User $userId'),
-                key: const ValueKey('User'),
                 child: UserScreen(
                   userId: userId,
                 ),
